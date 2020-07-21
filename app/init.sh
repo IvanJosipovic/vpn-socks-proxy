@@ -11,7 +11,7 @@ for ip in ${DNS}; do
 done
 
 echo "    forward-ssl-upstream: yes" >> /etc/unbound/unbound.conf
-echo nameserver 127.0.0.1 > /etc/resolv.conf
+#echo nameserver 127.0.0.1 > /etc/resolv.conf
 
-unbound
+#unbound
 sockd -N 2 -D
