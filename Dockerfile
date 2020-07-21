@@ -4,7 +4,7 @@ MAINTAINER Ahmed <OneOfOne> W.
 EXPOSE 1080
 
 RUN echo "http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
-	apk add -q --progress --no-cache --update openvpn dante-server wget ca-certificates unzip unbound runit && \
+	apk add -q --progress --no-cache --update openvpn dante-server wget ca-certificates unzip runit && \
 	wget -q https://www.privateinternetaccess.com/openvpn/openvpn.zip \
 			https://www.privateinternetaccess.com/openvpn/openvpn-strong.zip \
 			https://www.privateinternetaccess.com/openvpn/openvpn-tcp.zip \
@@ -20,7 +20,7 @@ RUN echo "http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositor
 COPY ./app /app
 COPY ./etc /etc
 
-#COPY --from=qmcgaw/dns-trustanchor /named.root /etc/unbound/root.hints
+#Add https://www.internic.net/domain/named.root /etc/unbound/root.hints
 #COPY --from=qmcgaw/dns-trustanchor /root.key /etc/unbound/root.key
 
 RUN chmod 500 /app/ovpn/run /app/init.sh
