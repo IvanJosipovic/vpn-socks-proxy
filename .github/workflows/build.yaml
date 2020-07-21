@@ -1,0 +1,51 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+    - '*'
+  pull_request:
+    branches:
+    - '*'
+  schedule:
+    - cron:  '0 0 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 5
+    
+    steps:
+    - uses: actions/checkout@master
+    
+    - name: Login to Docker Registry
+      run: docker login --username ivanjosipovic --password ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Docker Build
+      run: docker build -t vpv .
+
+    - name: Docker Tag
+      if: github.ref != 'refs/heads/master'
+      run: docker tag vpv index.docker.io/ivanjosipovic/vpv:${GITHUB_REF##*/}-v${GITHUB_RUN_NUMBER}
+
+    - name: Docker Push
+      if: github.ref != 'refs/heads/master'
+      run: docker push index.docker.io/ivanjosipovic/vpv:${GITHUB_REF##*/}-v${GITHUB_RUN_NUMBER}
+
+
+    - name: Docker Tag
+      if: github.ref == 'refs/heads/master'
+      run: docker tag vpv index.docker.io/ivanjosipovic/vpv:v${GITHUB_RUN_NUMBER}
+
+    - name: Docker Push
+      if: github.ref == 'refs/heads/master'
+      run: docker push index.docker.io/ivanjosipovic/vpv:v${GITHUB_RUN_NUMBER}
+
+    - name: Docker Tag
+      if: github.ref == 'refs/heads/master'
+      run: docker tag vpv index.docker.io/ivanjosipovic/vpv:latest
+
+    - name: Docker Push
+      if: github.ref == 'refs/heads/master'
+      run: docker push index.docker.io/ivanjosipovic/vpv:latest
