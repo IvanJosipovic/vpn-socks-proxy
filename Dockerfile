@@ -20,8 +20,8 @@ RUN echo "http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositor
 COPY ./app /app
 COPY ./etc /etc
 
-ADD https://www.internic.net/domain/named.root /etc/unbound/root.hints
-RUN unbound-anchor -a /etc/unbound/root.key
+#ADD https://www.internic.net/domain/named.root /etc/unbound/root.hints
+#RUN unbound-anchor -a /etc/unbound/root.key
 
 RUN chmod 500 /app/ovpn/run /app/init.sh
 
