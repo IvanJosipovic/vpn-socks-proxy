@@ -20,8 +20,8 @@ RUN echo "http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositor
 COPY ./app /app
 COPY ./etc /etc
 
-COPY --from=qmcgaw/dns-trustanchor /named.root /etc/unbound/root.hints
-COPY --from=qmcgaw/dns-trustanchor /root.key /etc/unbound/root.key
+#COPY --from=qmcgaw/dns-trustanchor /named.root /etc/unbound/root.hints
+#COPY --from=qmcgaw/dns-trustanchor /root.key /etc/unbound/root.key
 
 RUN chmod 500 /app/ovpn/run /app/init.sh
 
