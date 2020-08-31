@@ -18,34 +18,10 @@ jobs:
     
     steps:
     - uses: actions/checkout@master
-    
-    - name: Login to Docker Registry
-      run: docker login --username ivanjosipovic --password ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Docker Build
-      run: docker build -t pia-socks-proxy .
-
-    - name: Docker Tag
-      if: github.ref != 'refs/heads/master'
-      run: docker tag pia-socks-proxy index.docker.io/ivanjosipovic/pia-socks-proxy:${GITHUB_REF##*/}-v${GITHUB_RUN_NUMBER}
-
-    - name: Docker Push
-      if: github.ref != 'refs/heads/master'
-      run: docker push index.docker.io/ivanjosipovic/pia-socks-proxy:${GITHUB_REF##*/}-v${GITHUB_RUN_NUMBER}
-
-
-    - name: Docker Tag
-      if: github.ref == 'refs/heads/master'
-      run: docker tag pia-socks-proxy index.docker.io/ivanjosipovic/pia-socks-proxy:v${GITHUB_RUN_NUMBER}
-
-    - name: Docker Push
-      if: github.ref == 'refs/heads/master'
-      run: docker push index.docker.io/ivanjosipovic/pia-socks-proxy:v${GITHUB_RUN_NUMBER}
-
-    - name: Docker Tag
-      if: github.ref == 'refs/heads/master'
-      run: docker tag pia-socks-proxy index.docker.io/ivanjosipovic/pia-socks-proxy:latest
-
-    - name: Docker Push
-      if: github.ref == 'refs/heads/master'
-      run: docker push index.docker.io/ivanjosipovic/pia-socks-proxy:latest
+    - name: Docker Build Tag Push
+      run: |
+        IMAGE_NAME="docker.pkg.github.com/${GITHUB_REPOSITORY,,}/pia-socks-proxy:${GITHUB_REF##*/}-v${GITHUB_RUN_NUMBER}"
+        echo "${{ github.token }}" | docker login https://docker.pkg.github.com -u ${GITHUB_ACTOR} --password-stdin
+        docker build -t $IMAGE_NAME .
+        docker push $IMAGE_NAME
