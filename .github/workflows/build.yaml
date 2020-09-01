@@ -21,7 +21,7 @@ jobs:
 
     - name: Docker Build Tag Push
       run: |
-        IMAGE_NAME="docker.pkg.github.com/${GITHUB_REPOSITORY,,}/pia-socks-proxy:${GITHUB_REF##*/}-v${GITHUB_RUN_NUMBER}"
+        IMAGE_NAME="ghcr.io/${GITHUB_REPOSITORY,,}/pia-socks-proxy:${GITHUB_REF##*/}-v${GITHUB_RUN_NUMBER}"
         echo "${{ github.token }}" | docker login https://docker.pkg.github.com -u ${GITHUB_ACTOR} --password-stdin
         docker build -t $IMAGE_NAME .
         docker push $IMAGE_NAME
