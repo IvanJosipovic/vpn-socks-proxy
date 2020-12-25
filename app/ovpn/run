@@ -25,4 +25,8 @@ else
 	exit 1
 fi
 
+if [ $WORKING_DIR != "" ]; then
+	cd $WORKING_DIR
+fi
+
 openvpn "$@" --user nobody --auth-nocache --script-security 2 --up "/app/init.sh"

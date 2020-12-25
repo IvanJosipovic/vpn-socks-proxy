@@ -22,6 +22,7 @@ RUN echo 'nameserver 1.1.1.1' > /etc/resolv.conf
 
 ENV FILTER="" \
 	SHUFFLE="" \
-	CONFIG=""
+	CONFIG="" \
+	WORKING_DIR=""
 
 CMD ["/app/ovpn/run"]
