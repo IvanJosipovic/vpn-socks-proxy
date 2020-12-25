@@ -6,4 +6,4 @@ done
 
 killall -9 sockd 2>/dev/null || true
 
-#sockd -N 2 -D
+sockd -N 2 -D

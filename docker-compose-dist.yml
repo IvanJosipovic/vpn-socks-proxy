@@ -1,25 +1,24 @@
 version: '3'
 services:
-  pia_socks_proxy:
-    build: https://github.com/OneOfOne/pia-socks-proxy.git
-    container_name: pia-socks-proxy
-    image: oneofone/pia-socks-proxy
+  vpn_socks_proxy:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vpn-socks-proxy
+    image: ghcr.io/ivanjosipovic/vpn-socks-proxy/vpn-socks-proxy
     cap_add:
       - NET_ADMIN
     devices:
       - /dev/net/tun
     environment:
-      - REGION=US East
+      - CONFIG=/openvpn/pia/ca_vancouver.ovpn
       - USERNAME=PIA-USERNAME
       - PASSWORD=PIA-PASSWORD
-      - DNS=1.1.1.1@853#cloudflare-dns.com 1.0.0.1@853#cloudflare-dns.com
-      - PROTOCOL="udp"
-      - ENCRYPTION="strong"
     networks:
-      - pia_socks_proxy
+      - vpn_socks_proxy
     ports:
       - 1080:1080
     restart: always
 
 networks:
-  pia_socks_proxy:
+  vpn_socks_proxy:
