@@ -1,7 +1,17 @@
 #!/bin/sh
 set -e -u -o pipefail
 
-set -- "$@" '--config' "/openvpn/${PROTOCOL}-${ENCRYPTION}/${REGION}.ovpn"
+if [ $FILTER != "" ]; then
+	if [ $SHUFFLE == "YES" ]; then
+	echo "Filter/Shuffle: $FILTER";
+		CONFIG=$(ls *$FILTER* | shuf | head -1)
+	else
+		echo "Filter: $FILTER";
+		CONFIG=$(ls *$FILTER* | head -1)
+	fi
+fi
+
+set -- "$@" '--config' "${CONFIG}"
 
 if [ -n "$USERNAME" -a -n "$PASSWORD" ]; then
 	echo "$USERNAME" > /openvpn/auth.conf
@@ -12,11 +22,5 @@ else
 	echo "OpenVPN credentials not set. Exiting."
 	exit 1
 fi
-
-for ip in ${DNS}; do
-	echo "  forward-addr: $ip" >> /etc/unbound/unbound.conf
-done
-
-echo "    forward-ssl-upstream: yes" >> /etc/unbound/unbound.conf
 
 openvpn "$@" --user nobody --auth-nocache --script-security 2 --up "/app/init.sh"

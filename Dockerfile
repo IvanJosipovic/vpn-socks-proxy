@@ -1,35 +1,25 @@
 FROM alpine:latest
-MAINTAINER Ahmed <OneOfOne> W.
 
 EXPOSE 1080
 
-RUN echo "http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
-	apk add -q --progress --no-cache --update openvpn dante-server wget ca-certificates unzip unbound runit && \
+RUN echo "http://dl-4.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories && \
+	apk add -q --progress --no-cache --update openvpn dante-server wget ca-certificates unzip && \
 	wget -q https://www.privateinternetaccess.com/openvpn/openvpn.zip \
-			https://www.privateinternetaccess.com/openvpn/openvpn-strong.zip \
-			https://www.privateinternetaccess.com/openvpn/openvpn-tcp.zip \
-			https://www.privateinternetaccess.com/openvpn/openvpn-strong-tcp.zip && \
+			https://www.ipvanish.com/software/configs/configs.zip && \
 	mkdir -p /openvpn/ && \
-	unzip -q openvpn.zip -d /openvpn/udp-normal && \
-	unzip -q openvpn-strong.zip -d /openvpn/udp-strong && \
-	unzip -q openvpn-tcp.zip -d /openvpn/tcp-normal && \
-	unzip -q openvpn-strong-tcp.zip -d /openvpn/tcp-strong && \
+	unzip -q openvpn.zip -d /openvpn/pia && \
+	unzip -q configs.zip -d /openvpn/ipvanish && \
 	apk del -q --progress --purge unzip wget && \
 	rm -rf /*.zip /var/cache/apk/*
 
-COPY ./app /app
-COPY ./etc /etc
-
-#ADD https://www.internic.net/domain/named.root /etc/unbound/root.hints
-#RUN unbound-anchor -a /etc/unbound/root.key
+COPY ./app/ /app
+COPY ./etc/ /etc
 
 RUN chmod 500 /app/ovpn/run /app/init.sh
 
-ENV REGION="US East" \
-	USERNAME="" \
-	PASSWORD="" \
-	ENCRYPTION=strong \
-	PROTOCOL=udp \
-	DNS="1.1.1.1@853#cloudflare-dns.com 1.0.0.1@853#cloudflare-dns.com"
+RUN echo 'nameserver 1.1.1.1' > /etc/resolv.conf
 
-CMD ["runsvdir", "/app"]
+ENV FILTER="" \
+	SHUFFLE=""
+
+CMD ["/app/ovpn/run"]
