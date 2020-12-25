@@ -2,18 +2,13 @@
 set -e -u -o pipefail
 
 if [ $FILTER != "" ]; then
-	if [ $SHUFFLE == "YES" ]; then
-	echo "Filter/Shuffle: $FILTER";
-		CONFIG=$(ls $FILTER* | shuf | head -1)
-	else
-		echo "Filter: $FILTER";
-		CONFIG=$(ls $FILTER* | head -1)
-	fi
+	echo "Filter: '$FILTER'"
+	CONFIG=$(find $WORKING_DIR -type f -name $FILTER | shuf | tail -n 1)
 fi
 
-set -- "$@" '--config' "${CONFIG}"
-
 echo "Config: $CONFIG"
+
+set -- "$@" '--config' "${CONFIG}"
 
 if [ -n "$USERNAME" -a -n "$PASSWORD" ]; then
 	echo "$USERNAME" > /openvpn/auth.conf
@@ -25,8 +20,7 @@ else
 	exit 1
 fi
 
-if [ $WORKING_DIR != "" ]; then
-	cd $WORKING_DIR
-fi
-
+cd $WORKING_DIR
+echo "Startin VPN"
+echo ""
 openvpn "$@" --user nobody --auth-nocache --script-security 2 --up "/app/init.sh"
