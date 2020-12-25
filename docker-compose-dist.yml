@@ -11,7 +11,9 @@ services:
     devices:
       - /dev/net/tun
     environment:
-      - CONFIG=/openvpn/pia/ca_vancouver.ovpn
+      - CONFIG1=/openvpn/pia/ca_vancouver.ovpn
+      - FILTER=/openvpn/pia/ca_
+      - SHUFFLE=YES
       - USERNAME=PIA-USERNAME
       - PASSWORD=PIA-PASSWORD
     networks:

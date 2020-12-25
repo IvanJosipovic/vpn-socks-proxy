@@ -20,6 +20,7 @@ RUN chmod 500 /app/ovpn/run /app/init.sh
 RUN echo 'nameserver 1.1.1.1' > /etc/resolv.conf
 
 ENV FILTER="" \
-	SHUFFLE=""
+	SHUFFLE="" \
+	CONFIG=""
 
 CMD ["/app/ovpn/run"]

@@ -4,14 +4,16 @@ set -e -u -o pipefail
 if [ $FILTER != "" ]; then
 	if [ $SHUFFLE == "YES" ]; then
 	echo "Filter/Shuffle: $FILTER";
-		CONFIG=$(ls *$FILTER* | shuf | head -1)
+		CONFIG=$(ls $FILTER* | shuf | head -1)
 	else
 		echo "Filter: $FILTER";
-		CONFIG=$(ls *$FILTER* | head -1)
+		CONFIG=$(ls $FILTER* | head -1)
 	fi
 fi
 
 set -- "$@" '--config' "${CONFIG}"
+
+echo "Config: $CONFIG"
 
 if [ -n "$USERNAME" -a -n "$PASSWORD" ]; then
 	echo "$USERNAME" > /openvpn/auth.conf
