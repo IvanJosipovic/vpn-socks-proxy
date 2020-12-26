@@ -9,7 +9,7 @@ RUN echo "http://dl-4.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
 	wget -q https://www.ipvanish.com/software/configs/configs.zip -O /ipvanish.zip && \
 	mkdir -p /openvpn/ && \
 	unzip -q pia.zip -d /openvpn/pia && \
-	unzip -q openvpn.zip -d /openvpn/ipvanish && \
+	unzip -q ipvanish.zip -d /openvpn/ipvanish && \
 	mkdir -p /openvpn/ghostpath && \
 	wget -q https://ghostpath.com/servers/filegen/yul1.gpvpn.com/o -O /openvpn/ghostpath/yul1.ovpn && \
 	wget -q https://ghostpath.com/servers/filegen/yul2.gpvpn.com/o -O /openvpn/ghostpath/yul2.ovpn && \
