@@ -23,7 +23,7 @@ RUN echo "http://dl-4.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
 COPY ./app/ /app
 COPY ./etc/ /etc
 
-RUN chmod 500 /app/ovpn/run /app/init.sh
+RUN chmod 500 /app/ovpn/run /app/init.sh /app/down.sh
 
 RUN echo 'nameserver 1.1.1.1' > /etc/resolv.conf
 
