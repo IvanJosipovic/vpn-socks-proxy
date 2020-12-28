@@ -23,4 +23,4 @@ fi
 cd $WORKING_DIR
 echo "Startin VPN"
 echo ""
-timeout $(( $RANDOM % 11 + $RANDOM % 11 ))m openvpn "$@" --user nobody --auth-nocache --script-security 2 --up "/app/init.sh"
+timeout $(( $RANDOM % 11 + $RANDOM % 11 ))m openvpn "$@" --user nobody --auth-nocache --script-security 2 --up "/app/init.sh" --down "/app/down.sh"
