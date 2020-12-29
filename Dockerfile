@@ -4,7 +4,7 @@ LABEL org.opencontainers.image.source https://github.com/IvanJosipovic/vpn-socks
 EXPOSE 1080
 
 RUN echo "http://dl-4.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories && \
-	apk add -q --progress --no-cache --update openvpn dante-server wget ca-certificates unzip && \
+	apk add -q --progress --no-cache --update openvpn dante-server wget ca-certificates unzip curl && \
 	wget -q https://www.privateinternetaccess.com/openvpn/openvpn.zip -O /pia.zip && \
 	wget -q https://www.ipvanish.com/software/configs/configs.zip -O /ipvanish.zip && \
 	mkdir -p /openvpn/ && \
