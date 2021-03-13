@@ -1,9 +1,6 @@
 #!/bin/sh
 set -e -u -o pipefail
 
-FILTER=""
-TIMEOUT=""
-
 if [ $FILTER != "" ]; then
 	echo "Filter: '$FILTER'"
 	CONFIG=$(find $WORKING_DIR -type f -name $FILTER | shuf | tail -n 1)
