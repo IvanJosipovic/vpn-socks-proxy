@@ -23,7 +23,7 @@ fi
 cd $WORKING_DIR
 echo "Startin VPN"
 echo ""
-if [ -n $TIMEOUT ]; then
+if [ $TIMEOUT != "" ]; then
 	timeout $(( $RANDOM % 11 + $RANDOM % 11 ))m openvpn "$@" --user nobody --auth-nocache --script-security 2 --up "/app/init.sh" --down "/app/down.sh" --connect-retry-max 2
 else
 	openvpn "$@" --user nobody --auth-nocache --script-security 2 --up "/app/init.sh" --down "/app/down.sh" --connect-retry-max 2
