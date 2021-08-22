@@ -19,6 +19,6 @@ jobs:
     - name: Docker Build Tag Push
       run: |
         IMAGE_NAME="ghcr.io/${GITHUB_REPOSITORY,,}/vpn-socks-proxy:${GITHUB_REF##*/}-v${GITHUB_RUN_NUMBER}"
-        echo ${{ secrets.DOCKER_PASSWORD }} | docker login ghcr.io -u ${GITHUB_ACTOR} --password-stdin
+        echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${GITHUB_ACTOR} --password-stdin
         docker build -t $IMAGE_NAME .
         docker push $IMAGE_NAME
