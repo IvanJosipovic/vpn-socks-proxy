@@ -27,7 +27,7 @@ COPY ./etc/ /etc
 
 RUN chmod 500 /app/ovpn/run /app/init.sh /app/down.sh
 
-RUN echo 'nameserver 1.1.1.1' > /etc/resolv.conf
+#RUN echo 'nameserver 1.1.1.1' > /etc/resolv.conf
 
 ENV FILTER="" \
 	SHUFFLE="" \
