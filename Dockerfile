@@ -12,8 +12,8 @@ RUN mkdir -p /openvpn/
 RUN	wget -q https://www.privateinternetaccess.com/openvpn/openvpn.zip -O /pia.zip && \
 	unzip -q pia.zip -d /openvpn/pia
 
-RUN	wget -q https://configs.ipvanish.com/configs/configs.zip -O /ipvanish.zip && \
-	unzip -q ipvanish.zip -d /openvpn/ipvanish
+#RUN	wget -q https://configs.ipvanish.com/configs/configs.zip -O /ipvanish.zip && \
+#	unzip -q ipvanish.zip -d /openvpn/ipvanish
 
 RUN	wget -q https://privadovpn.com/apps/ovpn_configs.zip -O /privadovpn.zip && \
 	unzip -q privadovpn.zip -d /openvpn/privadovpn
