@@ -26,6 +26,13 @@ RUN	mkdir -p /openvpn/ghostpath && \
 	wget -q https://ghostpath.com/servers/filegen/yyz2.gpvpn.com/o -O /openvpn/ghostpath/yyz2.ovpn && \
 	wget -q https://ghostpath.com/servers/filegen/yvr1.gpvpn.com/o -O /openvpn/ghostpath/yvr1.ovpn
 
+RUN echo tls-cipher "DEFAULT:@SECLEVEL=0" >> /openvpn/ghostpath/yul1.ovpn && \
+    echo tls-cipher "DEFAULT:@SECLEVEL=0" >> /openvpn/ghostpath/yul2.ovpn && \
+    echo tls-cipher "DEFAULT:@SECLEVEL=0" >> /openvpn/ghostpath/yul3.ovpn && \
+    echo tls-cipher "DEFAULT:@SECLEVEL=0" >> /openvpn/ghostpath/yyz1.ovpn && \
+    echo tls-cipher "DEFAULT:@SECLEVEL=0" >> /openvpn/ghostpath/yyz2.ovpn && \
+    echo tls-cipher "DEFAULT:@SECLEVEL=0" >> /openvpn/ghostpath/yvr1.ovpn
+
 RUN	apk del -q --progress --purge unzip wget && \
 	rm -rf /*.zip
 
