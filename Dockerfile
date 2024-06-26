@@ -1,9 +1,9 @@
-FROM alpine:latest
+FROM alpine
 LABEL org.opencontainers.image.source https://github.com/IvanJosipovic/vpn-socks-proxy
 
 EXPOSE 1080
 
-RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
+#RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
 
 RUN apk add -q --progress --no-cache --update openvpn dante-server wget ca-certificates unzip curl
 
