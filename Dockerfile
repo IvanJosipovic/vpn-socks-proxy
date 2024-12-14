@@ -7,6 +7,8 @@ EXPOSE 1080
 
 RUN apk add -q --progress --no-cache --update openvpn dante-server wget ca-certificates unzip curl
 
+RUN apk add -q --progress --no-cache --update --repository http://nl.alpinelinux.org/alpine/v3.19/main openssl=3.1.7-r1
+
 RUN mkdir -p /openvpn/
 
 RUN	wget -q https://www.privateinternetaccess.com/openvpn/openvpn.zip -O /pia.zip && \

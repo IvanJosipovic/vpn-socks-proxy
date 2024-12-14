@@ -2,18 +2,15 @@ version: '3'
 services:
   vpn_socks_proxy:
     build:
-      context: .
       dockerfile: Dockerfile
     container_name: vpn-socks-proxy
-    image: ghcr.io/ivanjosipovic/vpn-socks-proxy/vpn-socks-proxy
     cap_add:
       - NET_ADMIN
     devices:
       - /dev/net/tun
     environment:
-      - CONFIG1=/openvpn/pia/ca_vancouver.ovpn
-      - FILTER=/openvpn/pia/ca_
-      - SHUFFLE=YES
+      - WORKING_DIR=/openvpn/pia
+      - FILTER=ca_*
       - USERNAME=PIA-USERNAME
       - PASSWORD=PIA-PASSWORD
     networks:
